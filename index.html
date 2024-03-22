@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>F1 Stint Calculator - Beta</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="favicon.ico" />
+  </head>
+  <body>
+    <div class="container">
+      <header>F1 Stint Calculator - Beta</header>
+      <section>
+        <div class="calc">
+          <label for="time">Remaining time:</label><br />
+          <input type="text" id="time" name="time" placeholder="12:34" />
+          <span id="timePat"></span><br />
+          <label for="laps">Lap time:</label><br />
+          <input type="text" id="laps" name="laps" placeholder="1:23,456" />
+          <span id="lapsPat"></span><br />
+          <input
+            type="button"
+            value="Calculate"
+            onclick="calculate()"
+          /><br /><br />
+        </div>
+        <p id="result"></p>
+      </section>
+      <footer>
+        Author:
+        <a href="https://github.com/plutix05" target="_blank">plutix05</a> 2024
+        -
+        <span id="year"></span>
+        Website version: 0.3.1
+      </footer>
+    </div>
+  </body>
+  <script src="calculate.js"></script>
+  <script>
+    let year = new Date().getFullYear();
+    document.getElementById("year").textContent = year;
+  </script>
+</html>
