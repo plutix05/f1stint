@@ -78,6 +78,7 @@ a:active {
 }
 
 #lapsPat,
-#timePat {
+#timePat,
+#boxPat {
   color: red;
 }

@@ -6,7 +6,6 @@ function calculate() {
     ok = false;
     timePat.innerHTML = "Wrong time format. Correct is 99:59";
   } else {
-    ok = true;
     timePat.innerHTML = "";
   }
   let laps = document.getElementById("laps").value;
@@ -15,8 +14,17 @@ function calculate() {
     ok = false;
     lapsPat.innerHTML = "Wrong time format. Correct is 9:59:999";
   } else {
-    ok = true;
     lapsPat.innerHTML = "";
+  }
+  let box = document.getElementById("box").value;
+  let boxPattern = /^([0-9]?[0-9]):([0-5]?[0-9])$/;
+  if (box != "") {
+    if (boxPattern.test(box) != true) {
+      ok = false;
+      boxPat.innerHTML = "Wrong time format. Correct is 99:59";
+    } else {
+      boxPat.innerHTML = "";
+    }
   }
 
   if (ok == true) {
@@ -31,10 +39,24 @@ function calculate() {
     let lapsMiliseconds = parseInt(lapsArray[1].split(",")[1]);
     let lapsResult = lapsMinutes * 60 + lapsSeconds + lapsMiliseconds / 1000;
 
-    let stintLength = timeResult / lapsResult;
-    let stint = Math.floor(stintLength);
+    let boxArray = box.split(":");
+    let boxMinutes = parseInt(boxArray[0]);
+    let boxSeconds = parseInt(boxArray[1]);
+    let boxResult = boxMinutes * 60 + boxSeconds;
 
-    result.innerHTML = "Your stint length is\n" + stint + "\nlaps.";
+    if (box != "") {
+      let stintLength = (timeResult - boxResult) / lapsResult;
+      let stint = Math.floor(stintLength);
+      result.innerHTML = "Your stint length is\n" + stint + "\nlaps.";
+    } else {
+      let stintLength = timeResult / lapsResult;
+      let stint = Math.floor(stintLength);
+      result.innerHTML = "Your stint length is\n" + stint + "\nlaps.";
+    }
+
+    
+
+    
   }
 }
-//Function version 0.3.0
+//Function version 0.4.0
