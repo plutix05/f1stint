@@ -1,14 +1,11 @@
-/* Importowanie niestandardowej czcionki */
 @import url("https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100..900;1,100..900&display=swap");
 
-/* Resetowanie styli */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Podstawowe style dla body */
 body {
   font-family: REM, Arial, sans-serif;
   margin: 0px !important;
@@ -16,12 +13,11 @@ body {
   color: white;
 }
 
-/* Styl kontenera */
 .container {
   position: relative;
   width: 100%;
-  min-height: 100vh; /* Zmienione na 100vh */
-  overflow: hidden; /* Dodane */
+  min-height: 100vh;
+  overflow: hidden;
 }
 
 header {
@@ -34,8 +30,8 @@ header {
 section {
   margin-top: 10px;
   padding: 20px;
-  height: calc(100% - 120px); /* Zmienione */
-  overflow-y: auto; /* Dodane */
+  height: calc(100% - 120px);
+  overflow-y: auto;
 }
 
 .calc {
