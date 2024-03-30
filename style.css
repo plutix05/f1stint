@@ -27,8 +27,46 @@ header {
   padding: 15px;
 }
 
+nav {
+  width: 100%;
+  margin: 35px 0 20px 0;
+  background-color: #e80404;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px;
+}
+
+.navol {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  font-size: 18px;
+  height: 35px;
+  line-height: 200%;
+  display: inline-block;
+}
+
+.navol a {
+  color: #ffffff;
+  text-decoration: none;
+  display: block;
+}
+
+.navol > li {
+  float: left;
+  width: 150px;
+  height: 40px;
+}
+
+.navol > li:hover {
+  background-color: #ed3636;
+}
+
+.navol > li:hover > a {
+  color: #a20303;
+}
+
 section {
-  margin-top: 10px;
   padding: 20px;
   height: calc(100% - 120px);
   overflow-y: auto;
@@ -60,7 +98,7 @@ input {
 }
 
 input[type="button"] {
-  background-color: #ce3a3a;
+  background-color: #e80404;
   cursor: pointer;
 }
 
@@ -74,7 +112,14 @@ a:hover {
 }
 
 a:active {
-  color: #ce3a3a;
+  color: #e80404;
+}
+
+ul > h3{
+  margin: 0px 30px;
+}
+ul > li {
+  margin: 10px 80px;
 }
 
 #lapsPat,
