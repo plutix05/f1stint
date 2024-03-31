@@ -18,37 +18,26 @@
         </ol>
       </nav>
       <section>
-        <h1>Patch notes:</h1>
-        <br />
-        <h2>Version 1.1.0:</h2>
-        <br />
-        <ul>
-          <h3>New fetures:</h3>
-          <li>
-            Added new function: Champion Calculator! Now you can easily
-            calculate how many points you need after next race to become World
-            Champion!
-          </li>
-          <h3>Changes:</h3>
-          <li>
-            Now the web app is name just "F1 Stint".
-          </li>
-        </ul>
-        <br />
-        <h2>Version 1.0.0:</h2>
-        <br />
-        <ul>
-          <h3>New fetures:</h3>
-          <li>
-            Added ability to input stint time, aproximate lap time and optional
-            box time.
-          </li>
-        </ul>
-        <br />
-        <p>
-          Thank you for using F1 Stint Calculator! Stay tuned for future updates
-          and feel free to provide any feedback or suggestions.
-        </p>
+        <h1>Champion calculator</h1>
+        <br /><br />
+        <label for="sYear">Select season:</label><br />
+        <select name="sYear" id="sYear" onchange="race()">
+          <option value="null" selected>-- Select year --</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+        </select>
+        <p id="selectPlace"></p>
+        <label for="sCalendar" id="lCalendar" hidden
+          >Select upcoming race:</label
+        ><br />
+        <select
+          name="sCalendar"
+          id="sCalendar"
+          hidden
+          onchange="champ()"
+        ></select>
+        <button onclick="resetAll()">Reset</button>
+        <p id="result"></p>
       </section>
       <footer>
         <span>
@@ -66,4 +55,5 @@
     let year = new Date().getFullYear();
     document.getElementById("year").textContent = year;
   </script>
+  <script src="champ.js"></script>
 </html>

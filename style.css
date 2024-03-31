@@ -85,7 +85,7 @@ footer {
   bottom: 0;
 }
 
-input {
+input,select,button {
   width: 100%;
   padding: 8px;
   margin-top: 5px;
@@ -97,7 +97,7 @@ input {
   border-radius: 5px;
 }
 
-input[type="button"] {
+input[type="button"], button {
   background-color: #e80404;
   cursor: pointer;
 }
@@ -126,4 +126,7 @@ ul > li {
 #timePat,
 #boxPat {
   color: red;
+}
+h1{
+  text-align: center;
 }
