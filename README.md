@@ -14,7 +14,7 @@ This project use:
 * CSS
 * JavaScript
 
-## How can I use this app?
+## How can I run this app?
 It's very simple. You just need a web browser. Type link f1stint.ct8.pl and enjoy :).
 
 ## Features
