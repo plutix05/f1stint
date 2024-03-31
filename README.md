@@ -17,7 +17,7 @@ This project use:
 
 
 ## How can I run this app?
-It's very simple. You just need a web browser. Type link [f1stint.ct8.pl](https://www.f1stint.ct8.pl) and enjoy :).
+It's very simple. You just need a web browser. Type link f1stint.ct8.pl and enjoy :).
 
 To use stint calculator just fill the inputs and everything will be fine.
 ![image](https://github.com/plutix05/f1stint/assets/153779686/1f4bdbee-4e82-49ed-901c-250be384411b)
