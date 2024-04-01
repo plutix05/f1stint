@@ -2,7 +2,7 @@
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
-* [How can I use this app?](#how-can-i-use-this-app?)
+* [How can I run this app?](#how-can-i-run-this-app?)
 * [Features](#features)
   
 ## General info
