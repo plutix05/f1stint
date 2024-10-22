@@ -1,47 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>F1 Stint - Patch notes</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="shortcut icon" href="favicon.ico" />
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Stint - Champion Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="js/champ.js" defer></script>
+    <script src="js/footer.js" defer></script>
+</head>
+<body>
     <div class="container">
-      <header>F1 Stint</header>
-      <nav>
-        <ol class="navol">
-          <li><a href="index.html">Stint</a></li>
-          <li><a href="champ.html">Champion</a></li>
-          <li><a href="patch.html">Patch notes</a></li>
-        </ol>
-      </nav>
-      <section>
-        <h1>Champion calculator</h1>
-        <br /><br />
-        <label for="sYear">Select season:</label><br />
-        <select name="sYear" id="sYear" onchange="race()">
-          <option value="null" selected>-- Select year --</option>
-          <option value="2022">2022</option>
-          <option value="2023">2023</option>
-        </select>
-        <p id="selectPlace"></p>
-        <label for="sCalendar" id="lCalendar" hidden
-          >Select upcoming race:</label
-        ><br />
-        <select
-          name="sCalendar"
-          id="sCalendar"
-          hidden
-          onchange="champ()"
-        ></select>
-        <button onclick="resetAll()">Reset</button>
-        <p id="result"></p>
-      </section>
-      <footer id="footer"></footer>
+        <header>F1 Stint</header>
+        <nav>
+            <ol class="navol">
+                <li><a href="index.html">Stint</a></li>
+                <li><a href="champ.html">Champion</a></li>
+                <li><a href="patch.html">Patch notes</a></li>
+            </ol>
+        </nav>
+        <section>
+            <div class="calc">
+                <label for="seasons">Choose season</label>
+                <select id="seasons" onchange="season()">
+                    <option value="null" disabled selected>-- Select season --</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="custom">Custom season</option>
+                </select>
+                <div id="season2022" hidden>
+                    <h2>Season 2022</h2>
+                    <label for="race2022">Select race</label>
+                    <select id="race2022"></select>
+                    <input type="button" id="btn" value="Calc" onclick="showRaceData('2022', 'race2022')">
+                </div>
+                <div id="season2023" hidden>
+                    <h2>Season 2023</h2>
+                    <label for="race2023">Select race</label>
+                    <select id="race2023"></select>
+                    <input type="button" id="btn" value="Calc" onclick="showRaceData('2023', 'race2023')">
+                </div>
+                <div id="season2024" hidden>
+                    <h2>Season 2024</h2>
+                    <label for="race2024">Select race</label>
+                    <select id="race2024"></select>
+                    <input type="button" id="btn" value="Calc" onclick="showRaceData('2024', 'race2024')">
+                </div>
+                <div id="custom" hidden>
+                    <h2>Custom season</h2>
+                    <label for="race">Races</label>
+                    <input type="number" id="race" placeholder="Races to the end" min="1" onchange="points()">
+                    <label for="ppw">Points per win</label>
+                    <input type="number" id="ppw" placeholder="Points per win" min="1" disabled>
+                    <label for="ppw">Points per 2nd place</label>
+                    <input type="number" id="pp2" placeholder="Points per 2nd place" min="1" disabled>
+                    <input type="checkbox" id="pppCheck" onclick="polePosition()">
+                    <label for="pppCheck">Points for Pole Position</label>
+                    <input type="number" class="hide" id="pppInput" min="1" placeholder="Points for Pole Position">
+                    <input type="checkbox" id="flpCheck" onclick="fastestLap()">
+                    <label for="flpCheck">Points for Fastest Lap</label>
+                    <input type="number" class="hide" id="flpInput" min="1" placeholder="Points per Fastest Lap">
+                    <input type="checkbox" id="spCheck" onclick="sprintBool()">
+                    <label for="spCheck">Sprints</label>
+                    <input type="number" class="hide" id="sprint" placeholder="How many sprints left?"  min="1" >
+                    <input type="number" class="hide" id="sp1" placeholder="Points per win in sprint"  min="1" >
+                    <input type="number" class="hide" id="sp2" placeholder="Points per 2nd place in sprint"  min="1" >
+                    <input type="button" value="Calc" onclick="calc()">
+                </div>
+                <p id="result"></p>
+            </div>
+        </section>
+        <footer id="footer"></footer>
     </div>
-  </body>
-  <script src="js/champ.js"></script>
-  <script src="js/footer.js"></script>
+</body>
 </html>

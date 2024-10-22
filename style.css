@@ -8,9 +8,10 @@
 
 body {
   font-family: REM, Arial, sans-serif;
-  margin: 0px !important;
+  margin: 0;
   background-color: #303030;
   color: white;
+  overflow-x: hidden;
 }
 
 .container {
@@ -74,22 +75,23 @@ section {
 
 .calc {
   display: grid;
-  place-items: center;
+  /* place-items: center; */
 }
 
 footer {
   text-align: center;
-  padding: 0px 20px;
+  padding: 50px 20px;
   height: 40px;
   position: absolute;
   bottom: 0;
 }
 
-input,select,button {
+input,
+select,
+button {
   width: 100%;
   padding: 8px;
-  margin-top: 5px;
-  margin-bottom: 15px;
+  margin: 10px 0;
   box-sizing: border-box;
   background-color: #4b4b4b;
   color: #ffffff;
@@ -97,7 +99,17 @@ input,select,button {
   border-radius: 5px;
 }
 
-input[type="button"], button {
+
+input:disabled {
+  background-color: #262626;
+}
+
+input:disabled::placeholder {
+  text-decoration: line-through;
+}
+
+input[type="button"],
+button {
   background-color: #e80404;
   cursor: pointer;
 }
@@ -115,9 +127,10 @@ a:active {
   color: #e80404;
 }
 
-ul > h3{
+ul > h3 {
   margin: 0px 30px;
 }
+
 ul > li {
   margin: 10px 80px;
 }
@@ -127,6 +140,62 @@ ul > li {
 #boxPat {
   color: red;
 }
-h1{
+
+h1 {
   text-align: center;
+}
+
+h2{
+  margin: 10px 0;
+  text-align: center;
+}
+
+/* Custom champ calc styles */
+
+.hide {
+  visibility: hidden;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.show {
+  visibility: visible;
+  height: auto;
+  margin: 10px 0;
+  padding: 8px;
+}
+
+#result{
+  text-align: center;
+}
+
+/* Specific adjustments for the sprint inputs to minimize space */
+#sprint.hide,
+#sp1.hide,
+#sp2.hide {
+  display: none; /* Completely remove from the layout when hidden */
+}
+
+#sprint.show,
+#sp1.show,
+#sp2.show {
+  display: block; /* Restore their visibility when shown */
+  height: auto;
+  margin: 10px 0;
+  padding: 8px;
+}
+
+input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+label {
+  margin: 0;
+  padding: 0;
+}
+
+#season2023{
+  width: 100%;
 }
