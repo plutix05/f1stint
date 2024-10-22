@@ -1,95 +1,187 @@
-let sCalendar = document.getElementById("sCalendar");
-let lCalendar = document.getElementById("lCalendar");
-let sYear = document.getElementById("sYear");
-let result = document.getElementById("result");
+let raceData = null;
 
-const points2023 = {
-  bahrain: { drivers: 26 * 22 + 6 * 8, constructors: 44 * 22 + 6 * 8 },
-  saudiArabia: {
-    drivers: 26 * 21 + 6 * 8,
-    constructors: 44 * 21 + 6 * 8,
-  },
-  australia: { drivers: 26 * 20 + 6 * 8, constructors: 44 * 20 + 6 * 8 },
-  azerbaijan: { drivers: 26 * 19 + 5 * 8, constructors: 44 * 19 + 5 * 8 },
-  miami: { drivers: 26 * 18 + 5 * 8, constructors: 44 * 18 + 5 * 8 },
-  imola: { drivers: 26 * 17 + 5 * 8, constructors: 44 * 17 + 5 * 8 },
-  monaco: { drivers: 26 * 16 + 5 * 8, constructors: 44 * 16 + 5 * 8 },
-  spain: { drivers: 26 * 15 + 5 * 8, constructors: 44 * 15 + 5 * 8 },
-  canada: { drivers: 26 * 14 + 5 * 8, constructors: 44 * 14 + 5 * 8 },
-  austria: { drivers: 26 * 13 + 4 * 8, constructors: 44 * 13 + 4 * 8 },
-  greatBritain: {
-    drivers: 26 * 12 + 4 * 8,
-    constructors: 44 * 12 + 4 * 8,
-  },
-  hungary: { drivers: 26 * 11 + 4 * 8, constructors: 44 * 11 + 4 * 8 },
-  belgium: { drivers: 26 * 10 + 3 * 8, constructors: 44 * 10 + 3 * 8 },
-  netherlands: { drivers: 26 * 9 + 3 * 8, constructors: 44 * 9 + 3 * 8 },
-  italy: { drivers: 26 * 8 + 3 * 8, constructors: 44 * 8 + 3 * 8 },
-  singapore: { drivers: 26 * 7 + 3 * 8, constructors: 7 * 19 + 3 * 8 },
-  japan: { drivers: 26 * 6 + 3 * 8, constructors: 44 * 6 + 3 * 8 },
-  qatar: { drivers: 26 * 5 + 2 * 8, constructors: 44 * 5 + 2 * 8 },
-  austin: { drivers: 26 * 4 + 8, constructors: 44 * 4 + 8 },
-  mexico: { drivers: 26 * 3 + 8, constructors: 44 * 3 + 8 },
-  brazil: { drivers: 26 * 2, constructors: 44 * 2 },
-  lasVegas: { drivers: 26 * 1, constructors: 44 * 1 },
-  abuDhabi: { drivers: 1, constructors: 1 },
-};
+    fetch('points.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            raceData = data;
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
 
-function race() {
-  let selectPlace = document.getElementById("selectPlace");
-  let year = sYear.value;
+    function fetchSeason(year) {
+        let raceSelect = document.getElementById(`race${year}`);
+        raceSelect.innerHTML = "";
+        
+        let optionNull = document.createElement("option");
+        optionNull.value = "null";
+        optionNull.textContent = "-- Select race --";
+        optionNull.setAttribute("selected", true);
+        optionNull.setAttribute("disabled", true);
+        raceSelect.appendChild(optionNull);
 
-  if (year === "2022") {
-    result.innerHTML = "";
-    sCalendar.removeAttribute("hidden");
-    lCalendar.removeAttribute("hidden");
-    sCalendar.innerHTML =
-      '<option value="null" selected>-- Select race --</option><option value="bahrain">Bahrain</option><option value="saudiArabia">Saudi Arabia</option><option value="australia">Australia</option><option value="imola">Imola</option><option value="miami">Miami</option><option value="spain">Spain</option><option value="monaco">Monaco</option><option value="azerbaijan">Azerbaijan</option><option value="canada">Canada</option><option value="greatBritain">Great Britain</option><option value="austria">Austria</option><option value="france">France</option><option value="hungary">Hungary</option><option value="belgium">Belgium</option><option value="netherlands">Netherlands</option><option value="italy">Italy</option><option value="singapore">Singapore</option><option value="japan">Japan</option><option value="austin">Austin</option><option value="mexico">Mexico</option><option value="brazil">Brazil</option><option value="abuDhabi">Abu Dhabi</option>';
-  } else if (year === "2023") {
-    result.innerHTML = "";
-    sCalendar.removeAttribute("hidden");
-    lCalendar.removeAttribute("hidden");
-    sCalendar.innerHTML =
-      '<option value="null" selected>-- Select race --</option><option value="bahrain">Bahrain</option><option value="saudiArabia">Saudi Arabia</option><option value="australia">Australia</option><option value="azerbaijan">Azerbaijan (Sprint)</option><option value="miami">Miami</option><option value="imola">Imola</option><option value="monaco">Monaco</option><option value="spain">Spain</option><option value="canada">Canada</option><option value="austria">Austria (Sprint)</option><option value="greatBritain">Great Britain</option><option value="hungary">Hungary</option><option value="belgium">Belgium (Sprint)</option><option value="netherlands">Netherlands</option><option value="italy">Italy</option><option value="singapore">Singapore</option><option value="japan">Japan</option><option value="qatar">Qatar (Sprint)</option><option value="austin">Austin (Sprint)</option><option value="mexico">Mexico</option><option value="brazil">Brazil (Sprint)</option><option value="lasVegas">Las Vegas</option><option value="abuDhabi">Abu Dhabi</option>';
-  } else {
-    sCalendar.setAttribute("hidden", true);
-    lCalendar.setAttribute("hidden", true);
-  }
-}
+        const season = raceData ? raceData[year] : {};
+        const raceKeys = Object.keys(season);
 
-function champ() {
-  let selectedIndex = sCalendar.selectedIndex;
-  let selectedOption = sCalendar.options[selectedIndex];
-  let resultText = "";
-  let year = sYear.value;
+        for (let i = 0; i < raceKeys.length; i++) {
+            let raceKey = raceKeys[i];
+            let race = season[raceKey];
 
-  if (year === "2022") {
-    let pointsDrivers = 26 * (22 - selectedIndex);
-    let pointsConstructors = 44 * (22 - selectedIndex);
-    resultText =
-      "You need\n" +
-      pointsDrivers +
-      "\npoints for drivers champion title and\n" +
-      pointsConstructors +
-      "\npoints for constructors champion title.";
-  } else if (year === "2023") {
-    let raceName = selectedOption.value;
-    let pointsDrivers = points2023[raceName].drivers;
-    let pointsConstructors = points2023[raceName].constructors;
-    resultText =
-      "You need\n" +
-      pointsDrivers +
-      "\npoints for drivers champion title and\n" +
-      pointsConstructors +
-      "\npoints for constructors champion title.";
-  }
+            let option = document.createElement("option");
+            option.value = raceKey;
+            option.textContent = race.name;
+            raceSelect.appendChild(option);
+        }
+    }
 
-  result.innerHTML = resultText;
-}
+    function showRaceData(year, raceElementId) {
+        let selectedRaceKey = document.getElementById(raceElementId).value;
 
-function resetAll() {
-  sYear.value = "null";
-  race();
-  result.innerHTML = "";
-}
-//Code version: 1.1.0
+        if (selectedRaceKey === 'null') {
+            result.style.color = "#f00";
+            result.innerHTML = "You need to choose a race!";
+            return;
+        }
+
+        const season = raceData ? raceData[year] : {};
+        const selectedRace = season[selectedRaceKey];
+
+        if (!selectedRace) {
+            result.style.color = "#f00";
+            result.innerHTML = "No data available for the selected race!";
+            return;
+        }
+
+        const { drivers, constructors } = selectedRace;
+        result.style.color = "#fff";
+        result.innerHTML = `
+            <h3>${selectedRace.name} ${year}</h3>
+            <p>Points you need after this race to become champion:</p>
+            <p>Drivers': ${drivers}</p>
+            <p>Constructors': ${constructors}</p>`;
+    }
+
+
+    function points(){
+        ppw.disabled = false;
+        pp2.disabled = false;
+    }
+
+    function sprintBool(){
+        if(spCheck.checked){
+            sprint.classList.add("show");
+            sprint.classList.remove("hide");
+            sp1.classList.add("show");
+            sp1.classList.remove("hide");
+            sp2.classList.add("show");
+            sp2.classList.remove("hide");
+        } else {
+            sprint.classList.add("hide");
+            sprint.classList.remove("show");
+            sp1.classList.add("hide");
+            sp1.classList.remove("show");
+            sp2.classList.add("hide");
+            sp2.classList.remove("show");
+        }
+    }
+
+    function polePosition(){
+        if(pppCheck.checked){
+            pppInput.classList.add("show");
+            pppInput.classList.remove("hide");
+        } else {
+            pppInput.classList.add("hide");
+            pppInput.classList.remove("show");
+        }
+    }
+
+    function fastestLap(){
+        if(flpCheck.checked){
+            flpInput.classList.add("show");
+            flpInput.classList.remove("hide");
+        } else {
+            flpInput.classList.add("hide");
+            flpInput.classList.remove("show");
+        }
+    }
+
+    function calc(){
+        let races = parseInt(race.value) || 0;
+        let win = parseInt(ppw.value) || 0;
+        let second = parseInt(pp2.value) || 0;
+
+        let sprints = (spCheck.checked) ? parseInt(sprint.value) || 0 : 0;
+        let sprintWin = (spCheck.checked) ? parseInt(sp1.value) || 0 : 0;
+        let sprintSecond = (spCheck.checked) ? parseInt(sp2.value) || 0 : 0;
+
+        let polePosition = (pppCheck.checked) ? parseInt(pppInput.value) || 0 : 0;
+        let fastestLap = (flpCheck.checked) ? parseInt(flpInput.value) || 0 : 0;
+
+        let driversChampion = races * (win + polePosition + fastestLap) + sprints * sprintWin;
+
+        let constructorChampion = races * (win + second + polePosition + fastestLap) + sprints * (sprintWin + sprintSecond);
+
+        if(sprints > races){
+            result.style.color = "#f00";
+            result.innerHTML = "Number of sprints cannot be higher than number of races!";
+        } else{
+            result.style.color = "#fff";
+            if(driversChampion && constructorChampion){
+                result.innerHTML = "<h3>Custom season</h3>" + 
+                "<p>Points you need to become champion before " + races +"\nraces to go:</p>" + 
+                "<p>Drivers': " + driversChampion + "</p>" + 
+                "<p>Constructors'" + constructorChampion + "</p>";
+            }
+        }
+    }
+
+    function season(){
+        let season = seasons.value;
+
+        if(season == 'null'){
+            season2022.setAttribute("hidden", true);
+            season2023.setAttribute("hidden", true);
+            season2024.setAttribute("hidden", true);
+            custom.setAttribute("hidden", true);
+            result.style.color = "#f00";
+            result.innerHTML = "You need to choose season!";
+        } else if(season == '2022'){
+            season2022.removeAttribute("hidden");
+            season2023.setAttribute("hidden", true);
+            season2024.setAttribute("hidden", true);
+            custom.setAttribute("hidden", true);
+            result.style.color = "#000";
+            result.innerHTML = "";
+            fetchSeason(2022);
+        } else if(season == '2023'){
+            season2022.setAttribute("hidden", true);
+            season2023.removeAttribute("hidden");
+            season2024.setAttribute("hidden", true);
+            custom.setAttribute("hidden", true);
+            result.style.color = "#000";
+            result.innerHTML = "";
+            fetchSeason(2023);
+        } else if(season == '2024'){
+            season2022.setAttribute("hidden", true);
+            season2023.setAttribute("hidden", true);
+            season2024.removeAttribute("hidden");
+            custom.setAttribute("hidden", true);
+            result.style.color = "#0f00";
+            result.innerHTML = ""
+            fetchSeason(2024);
+        } else if(season == 'custom'){
+            season2022.setAttribute("hidden", true);
+            season2023.setAttribute("hidden", true);
+            season2024.setAttribute("hidden", true);
+            custom.removeAttribute("hidden");
+            result.style.color = "#000";
+            result.innerHTML = "";
+        }
+    }
+
+//Code version 2.0.0
